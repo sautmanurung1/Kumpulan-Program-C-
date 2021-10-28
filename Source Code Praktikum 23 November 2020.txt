@@ -1,0 +1,288 @@
+Queue :
+#include <iostream>
+#define MAX 5 //maksimum data queue
+using namespace std;
+
+//Deklarasi struct antrian
+struct Queue {
+	int front, rear, data[MAX];
+}Q;
+
+//cek apakah antrian penuh
+bool isFull() {
+	return Q.rear == MAX;
+}
+
+//cek apakah antrian kosong
+bool isEmpty() {
+	return Q.rear == 0;
+}
+
+//Menampilkan Queue
+void printQueue() {
+	if (isEmpty()) {
+    cout << "Antrian kosong"<<endl;
+	}
+	else {
+		cout << "QUEUE : ";
+		for (int i = Q.front; i < Q.rear; i++)
+		//menambahkan koma jika data tidak terdapat di antrian pertama
+			cout << Q.data[i] << ((Q.rear-1 == i) ? "" : ",");
+			//if(Q.rear-1==i){
+			//cout<<""	
+			//}
+			//else{
+			//cout>>","	      }
+			
+				//SHORT HAND => variable = (condition) ? expressionTrue : expressionFalse
+		cout << endl;
+  }
+}
+
+//manambahkan data ke antrian
+void enqueue() {
+	if (isFull())
+	{
+		cout << "Antrian penuh!"<<endl;
+	}
+	else {
+		int data;
+		//menambahkan data ke antrian
+		cout << "Masukkan Data : ";cin >> data;
+		Q.data[Q.rear] = data;
+		//menempatkan tail pada elemen data terakhir yang ditambahkan
+		Q.rear++;
+		cout << "Data ditambahkan\n";
+		printQueue();
+	}
+}
+
+// mengambil data dari antrian
+void dequeue() {
+	if (isEmpty())
+	{
+		cout << "Antrian masih kosong"<<endl;
+	}
+	else{
+		cout << "Mengambil data \"" << Q.data[Q.front] << "\"..." << endl;
+		//menggeser antrian data ke head
+		for (int i = Q.front; i < Q.rear; i++)
+			Q.data[i] = Q.data[i + 1];
+		//menempatkan tail pada data terakhir yang digeser
+		Q.rear--;
+		printQueue();
+	}
+}
+
+int main() {
+	int choose;
+	do
+	{
+		//Tampilan menu
+		cout << "-------------------\n"
+			<< "   Menu Pilihan\n"
+			<< "-------------------\n"
+			<< " [1] Enqueue \n"
+			<< " [2] Dequeue\n"
+			<< " [3] Keluar \n\n"
+			<< "-------------------\n"
+			<< "Masukkan pilihan : "; cin >> choose;
+		switch (choose)
+		{
+		case 1:
+			enqueue();ch
+			break;
+		case 2:
+			dequeue();
+			break;
+		default:
+			cout << "Pilihan tidak tersedia";
+			break;
+		}
+	} while (choose !=3);
+	return 0;
+}
+
+Bubble Sort :
+#include <iostream>
+#include <conio.h>
+#define index 10
+using namespace std;
+    int data[index];
+    int n;
+
+int input(){
+    cout<<"Masukan Jumlah Data = ";
+	cin>>n;
+	cout<<endl;
+    for (int i=0;i<n;i++){
+    	cout<<"Masukan Data Ke-"<<i+1<<" = ";
+    	cin>>data[i];
+	}
+	cout<<endl;	
+}
+
+int tampil(){
+	for (int i=0;i<n;i++){
+	     cout<<"["<<data[i]<<"] ";
+	}
+	cout<<endl;
+}
+
+int bubble_sort(){
+	int t;
+	for (int i=1; i<n;i++){
+		for (int j=0; j<=n-i-1;j++){
+			if (data[j+1]<data[j]){		
+		    t=data[j];
+		    data[j]=data[j+1];
+		    data[j+1]=t;	
+			}
+		}
+		tampil();
+	}
+	cout<<endl;
+}
+
+int main()
+  {
+  	cout<<"ALGORITMA SORTING [BUBBLE SHORT]"<<endl;
+  	cout<<"----------------------"<<endl;
+	input();
+	cout<<"[Data yang di Input :]\n";
+	tampil();
+	cout<<"\n[Prosesi Bubble Sort]\n";
+	bubble_sort();
+	
+  getch();
+  }
+
+Selection Sort :
+#include <iostream>
+
+using namespace std;
+
+main(){
+	
+	int i,bd,temp,minindex,j;
+	cout<<"PROGRAM SELECTION SORT\n" <<endl;
+	cout<<"\nMasukkan Banyak Data : ";
+  	cin>>bd;
+  	int x[bd];
+  	//Input Data
+  	for(i=1; i<=bd; i++){
+   		cout<<"Masukkan Nilai Ke - "<<i<<" = ";
+		cin>>x[i];
+	}
+  	
+  	cout<<"\nData sebelum di sort : ";
+   	for(i=1; i<=bd;i++){
+   		cout<<x[i]<<" ";
+   	}
+   	for(i=1; i<=bd-1; i++) //perulangan iterasi
+   	{
+   		minindex=i; //Penyimpanan Sementara
+   		for(j=i+1; j<=bd; j++) //perulangan membandingkan data
+   		{
+   			if(x[minindex]>x[j]) //Jika x dengan array minindex lebih dari x dengan array j maka
+   			{ 
+   				minindex=j; //minindex sama dengan j
+   			} 
+   		}
+   		temp=x[i]; 
+   		x[i]=x[minindex];
+   		x[minindex]=temp;
+   	}
+    cout<<"\nData setelah di sort : ";
+    for(i=1; i<=bd; i++){
+      	cout<<x[i]<<" ";
+    }
+}
+
+Insertion Sort :
+#include <iostream>
+
+using namespace std;
+
+main(){
+	int i,j,n,temp;
+	
+	cout<<"Jumlah Data Yang Akan Di Urutkan : ";
+	cin>>n;
+	//Input Data
+	int data[n];
+	for(i=1;i<=n;i++){
+		cout<<"\nMasukkan Data Ke - "<<i<<" : ";
+        cin>>data[i];
+    }
+    
+	//Menampilkan Data Awal
+    cout<<"\nData Yang Belum Di Sorting :\n";
+    for(i=1;i<=n;i++){
+        cout<<data[i]<<" ";
+    }
+    
+    //Proses Insertion Sort
+    for(i=1;i<=n;i++){
+        for(j=1;j<=n;j++){
+            if(data[i]<data[j]){
+                temp=data[i];
+                data[i]=data[j];
+                data[j]=temp;
+            }
+        }
+    }
+    
+    //Menampilkan Data yang Sudah di Sorting
+    cout<<"\n\nData Yang Sudah Di Sorting :\n";
+    for(i=1;i<=n;i++){
+        cout<<data[i]<<" ";
+    }
+}
+
+Quick Sort :
+#include <iostream>
+
+using namespace std;
+
+void quickSort(int arr[], int left, int right);
+
+int main(){   
+	int jumlahBil;
+
+	cout<<"Masukkan jumlah bilangan dalam array : ";
+	cin>>jumlahBil;
+	int array[jumlahBil];
+	
+	for(int i=0; i<jumlahBil;i++){
+		cout<<"Bilangan ke- "<< i+1 << " : ";
+		cin>>array[i];
+	}
+	quickSort(array,0,jumlahBil-1 );
+	cout<<"Data yang telah diurutkan"<<endl;
+	for(int i=0; i<jumlahBil;i++){
+		cout<<array[i]<<" ";
+	}
+}
+void quickSort(int arr[], int left, int right){
+	int i = left, j = right, tmp;
+
+	int pivot = arr[(left + right) / 2];
+	while (i <= j) {
+		while (arr[i] < pivot)
+			i++;
+		while (arr[j] > pivot)
+			j--;
+		if (i <= j) {
+			tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
+			i++;
+			j--;
+		}
+	};
+	if (left < j)
+		quickSort(arr, left, j);
+	if (i < right)
+		quickSort(arr, i, right);
+}

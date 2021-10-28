@@ -1,0 +1,126 @@
+#include <iostream>
+#include <stdlib.h>
+#include <conio.h> 
+
+#define CLS system("cls");
+#define PAUSE {printf("\n"); system("pause");}
+
+using namespace std; 
+ 
+int main()
+{
+    struct list {
+        char nim[16];
+        char nama[64];
+        float nilai;
+        struct list *next;
+    };
+    struct list *awal, *akhir, *p, *Psbl, *baru;
+    awal = akhir = NULL;
+    int pilihan = 1, posisi, posisi_sekarang,posisi_data;
+    
+    do {
+         switch (pilihan) {
+            case 1: // tambah data kedalam list
+                CLS;
+                baru = (struct list *) malloc(sizeof(struct list)); // alokasikan list baru di memori
+                if (baru == NULL) {
+                    CLS;
+                    cout << "Memori Tidak cukup." << endl;
+                    PAUSE;
+                    break;
+                }
+                cout << endl ;
+                cout << "----------------------------"<<endl;
+                cout << " LATIHAN SINGLE LINKED LIST "<<endl;
+                cout << "----------------------------"<<endl;
+                cout << "NIM   : "; cin >> baru->nim;
+                cout << "Nama  : "; cin >> baru->nama;
+                cout << "Nilai : "; cin >> baru->nilai;
+                if (awal == NULL) {
+                    baru->next = NULL;
+                    awal = baru;
+                    akhir = baru;
+                } else { 
+                    cout << endl ;
+                    cout << "Tambahkan Data di (Default = Akhir) : \n ";
+                    cout << "1. Awal\n 2. Tengah\n 3. Akhir\n\nPilihan Anda : ";cin >> posisi;
+                    switch(posisi) {
+                        case 1:
+                            // tambah data di awal list
+                            baru->next = awal;
+                            awal = baru;
+                            //PAUSE;                          
+                            break;
+                         case 2:
+                            cout << "Masukan posisi data : "; cin >> posisi_data;
+                            p = awal;
+                            Psbl = NULL;
+                            posisi_sekarang = 1;
+                            while (p != NULL && posisi_sekarang < posisi_data) {
+                                //Psbl = p;
+                                p = p->next;
+                                posisi_sekarang++;
+                            }
+                            if (p != NULL) {
+                                // tambahkan data di tengah (posisi_data)
+                                Psbl = p;
+                                baru->next = p->next;
+                                Psbl->next = baru;
+                            }
+                            break;
+                        case 3:
+                        default:
+                            // tambah data di akhir list
+                            akhir->next = baru; 
+                            akhir = baru;
+                            baru->next = NULL;
+                            PAUSE;              
+                            break;
+                    }
+                }
+                break;
+                case 2: // tampilkan list
+                CLS;
+                p = awal;
+                     cout << endl << endl;
+                     cout << " LATIHAN SINGLE LINKED LIST " << endl;
+                     cout << "-----------------------------------------"<<endl;
+                     cout << "\n------------------------------------------\n";
+                if (p == NULL) {
+                    cout << "\n List Kosong\n";
+                    cout << "\n------------------------------------------\n";
+                } else {
+                    while (p != NULL) {
+                        cout << "NIM   : " << p->nim   <<endl;
+                        cout << "Nama  : " << p->nama  << endl;
+                        cout << "Nilai : " << p->nilai << endl;
+                        cout << "------------------------------------------"<< endl;
+                        p = p->next;
+                    }
+                }
+                cout << "\n";
+                PAUSE;
+                break;
+                
+            case 0: break;
+            
+            default:
+                cout << "\nPilihan salah ! \n";
+                PAUSE;
+                break;
+        }
+    
+        CLS;
+        cout << " LATIHAN SINGLE LINKED LIST " << endl;
+        cout << "----------------------------" <<endl;
+        cout << "1. Tambahkan data ke dalam list\n"
+                "2. Tampilkan list\n"
+                "0. Keluar\n\n";
+                cout << "Pilihan Anda : ";
+                cin >> pilihan;
+    } while (pilihan > 0);
+   
+    getch ();
+    return 0;
+}
